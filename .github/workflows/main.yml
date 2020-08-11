@@ -1,0 +1,39 @@
+name: Build
+
+on:
+  pull_request:
+    branches: [ master ]
+
+# env:
+#   REGISTRY_NAME: docker.pkg.github.com
+#   REGISTRY_REPO: seekops/kowalski/kowalski
+#   NAMESPACE: default
+#   CHART: './chart/seekops-chart'
+#   TAG: test
+#   CLUSTER_NAME: testCluster
+#   RELEASE_NAME: test
+#   URL: 'https://soda-test.seekops.com/'
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Python wheels manylinux build
+        uses: RalfG/python-wheels-manylinux-build@v0.3.1
+      # - name: Push to GitHub Packages
+      #   uses: docker/build-push-action@v1
+      #   with:
+      #     username: ${{ github.actor }}
+      #     password: ${{ secrets.GITHUB_TOKEN }}
+      #     registry: ${{ env.REGISTRY_NAME }}
+      #     repository: ${{ env.REGISTRY_REPO }}
+      #     build_args: AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }},AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     tags: ${{ env.TAG }}
+      #     tag_with_ref: true
+      # - name: Using secret for Kubeconfig
+      #   uses: azure/k8s-set-context@v1
+      #   with:
+      #     method: kubeconfig
+      #     kubeconfig: ${{ secrets.KUBE_TEST_CLUSTER_CONFIG }}
