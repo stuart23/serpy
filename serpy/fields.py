@@ -1,6 +1,6 @@
 import six
 import types
-from ciso8601 import parse_datetime
+from datetime import datetime
 
 
 class Field(object):
@@ -99,7 +99,10 @@ class BoolField(Field):
 
 class DateTimeField(Field):
     """A :class:`Field` that converts the value to a datetime."""
-    to_value = staticmethod(parse_datetime)
+    # The datetime isoformat method outperformed all other datetime to string
+    # translators as `datetime.strftime()`, `str()`,
+    # `pendulum.to_iso8601_string`, `rfc3339.rfc3339`
+    to_value = staticmethod(datetime.isoformat)
 
 
 class MethodField(Field):
