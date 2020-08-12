@@ -1,5 +1,6 @@
 import six
 import types
+from ciso8601 import parse_datetime
 
 
 class Field(object):
@@ -94,6 +95,11 @@ class FloatField(Field):
 class BoolField(Field):
     """A :class:`Field` that converts the value to a boolean."""
     to_value = staticmethod(bool)
+
+
+class DateTimeField(Field):
+    """A :class:`Field` that converts the value to a datetime."""
+    to_value = staticmethod(parse_datetime)
 
 
 class MethodField(Field):
