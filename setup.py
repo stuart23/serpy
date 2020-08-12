@@ -16,7 +16,10 @@ setup(
     author='Clark DuVall',
     author_email='clark.duvall@gmail.com',
     license='MIT',
-    install_requires=['six'],
+    install_requires=[
+        'six',
+        'ciso8601==2.1.3'
+        ],
     test_suite='tests',
     classifiers=[
         'Development Status :: 4 - Beta',
