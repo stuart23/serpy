@@ -21,6 +21,7 @@ class GeoJSONSerializerMeta(SerializerMeta):
 
 
 class GeoJSONSerializer(six.with_metaclass(GeoJSONSerializerMeta, Serializer)):
+    altitude_field = None
 
     def _serialize(self, instance, fields, geometry_field):
         properties = super()._serialize(instance, fields)
@@ -28,19 +29,40 @@ class GeoJSONSerializer(six.with_metaclass(GeoJSONSerializerMeta, Serializer)):
         return {
             "type": "Feature",
             "properties": properties,
-            "geometry": geometry
+            "geometry": {
+                "type": "Point",
+                "coordinates": geometry
+            }
+        }
+
+    def _serialize_with_altitude(self, instance, fields, geometry_field):
+        '''
+        Returns a method for serializing points using a specified field for the
+        altitude 'z' component.
+        '''
+        properties = super()._serialize(instance, fields)
+        (_, geometry), = super()._serialize(instance, [geometry_field]).items()
+        altitude = properties[self.altitude_field]
+        return {
+            "type": "Feature",
+            "properties": properties,
+            "geometry": {
+                "type": "Point",
+                "coordinates": (*geometry, altitude)
+            }
         }
 
     def to_value(self, instance):
         fields = self._compiled_fields
-        # altitude_field
-        import pdb; pdb.set_trace()
+        if self.altitude_field:
+            serialize = self._serialize_with_altitude
+        else:
+            serialize = self._serialize
         geometry_field = self._compiled_geometry_field
         if self.many:
-            serialize = self._serialize
             features = [serialize(o, fields, geometry_field) for o in instance]
         else:
-            features = [self._serialize(instance, fields)]
+            features = [serialize(instance, fields)]
         return {
             "type": "FeatureCollection",
             "crs": {"type": "name", "properties": {"name": "EPSG:4326"}},

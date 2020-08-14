@@ -133,14 +133,11 @@ class MethodField(Field):
 
 
 class GeometryField(Field):
-    """A :class:`Field` that represents a GIS location."""
+    """A :class:`Field` that represents a GIS point."""
     @staticmethod
     def to_value(geometry):
         # accessing the geometry.ogr.json seems to be the most complete, but
         # also the slowest way of getting the results. Compared to getting the
         # tuple, json was 7.2ms vs 1.2ms for the tuple. Also a single
         # component, e.g. geometry.x, was 7.2ms
-        return({
-            "type": "Point",
-            "coordinates": geometry.tuple
-            })
+        return(geometry.tuple)
