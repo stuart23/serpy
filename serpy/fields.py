@@ -130,14 +130,3 @@ class MethodField(Field):
         if method_name is None:
             method_name = 'get_{0}'.format(serializer_field_name)
         return getattr(serializer_cls, method_name)
-
-
-class GeometryField(Field):
-    """A :class:`Field` that represents a GIS point."""
-    @staticmethod
-    def to_value(geometry):
-        # accessing the geometry.ogr.json seems to be the most complete, but
-        # also the slowest way of getting the results. Compared to getting the
-        # tuple, json was 7.2ms vs 1.2ms for the tuple. Also a single
-        # component, e.g. geometry.x, was 7.2ms
-        return(geometry.tuple)
