@@ -1,7 +1,7 @@
 import six
 
 from .serializer import _compile_field_to_tuple, Serializer, SerializerMeta
-from .fields import GeometryField
+from .gisfields import GeometryField
 
 
 class GeoJSONSerializerMeta(SerializerMeta):

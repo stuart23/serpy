@@ -1,13 +1,22 @@
 from .fields import Field
 
 
-class PointField(Field):
+class GeometryField(Field):
+    '''
+    Class exactly the same as the same as :class:`Field` but subclassed so all
+    :class:`GeometryField` subclasses can be tested if they are an instance of
+    this class.
+    '''
+    pass
+
+
+class PointField(GeometryField):
     '''
     A :class:`Field` that represents a GIS point.
 
     The serialized object can be any object that defines the coordinates in a
-    `tuple` property, e.g. a django.contrib.gis.geos.Point. The coordinates can
-    be 2 or 3 dimensional.
+    `tuple` property, e.g. a :class:`django.contrib.gis.geos.Point`. The
+    coordinates can be 2 or 3 dimensional.
     '''
     @staticmethod
     def to_value(geometry):

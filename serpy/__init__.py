@@ -1,6 +1,7 @@
 from serpy.fields import (
-    Field, BoolField, IntField, FloatField, GeometryField, MethodField,
+    Field, BoolField, IntField, FloatField, MethodField,
     StrField)
+from serpy.gisfields import PointField
 from serpy.serializer import Serializer, DictSerializer
 from serpy.geojsonserializer import GeoJSONSerializer
 
@@ -16,7 +17,7 @@ __all__ = [
     'BoolField',
     'IntField',
     'FloatField',
-    'GeometryField',
     'MethodField',
     'StrField',
+    'PointField'
 ]
