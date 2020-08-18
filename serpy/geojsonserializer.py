@@ -13,7 +13,7 @@ class GeoJSONSerializerMeta(SerializerMeta):
                 break
         else:
             geometry_field = None
-        real_cls = super(GeoJSONSerializerMeta, self)\
+        real_cls = super(GeoJSONSerializerMeta)\
             .__new__(cls, name, bases, attrs)
         if geometry_field:
             real_cls._compiled_geometry_field = _compile_field_to_tuple(
