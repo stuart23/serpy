@@ -1,7 +1,7 @@
 import unittest
 
 from .obj import Obj
-from serpy.fields import Field
+from serpy.fields import Field, IntField
 from serpy.gisfields import PointField
 from serpy.geojsonserializer import GeoJSONSerializer
 
@@ -85,7 +85,7 @@ class TestGeoJSONSerializer(unittest.TestCase):
              }
             )
 
-    def test_many_geometry(self):
+    def test_many_geometry_with_properties(self):
         class ASerializer(GeoJSONSerializer):
             a = PointField()
             b = Field()
@@ -110,5 +110,102 @@ class TestGeoJSONSerializer(unittest.TestCase):
                 ]
              }
             )
+
+    def test_just_geometry_with_altitude(self):
+        class ASerializer(GeoJSONSerializer):
+            altitude_field = 'b'
+            a = PointField()
+            b = IntField()
+
+        instance = Obj(a=Obj(tuple=(1, 2)), b=3)
+        self.assertEqual(
+            ASerializer(instance).data,
+            {'type': 'FeatureCollection',
+             'crs': {'type': 'name', 'properties': {'name': 'EPSG:4326'}},
+             'features': [
+                {'type': 'Feature',
+                 'properties': {'b': 3},
+                 'geometry': {'type': 'Point', 'coordinates': (1, 2, 3)}
+                 }
+                ]
+             }
+            )
+
+    def test_with_properties_and_altitude(self):
+        class ASerializer(GeoJSONSerializer):
+            altitude_field = 'b'
+            a = PointField()
+            b = IntField()
+            c = Field()
+
+        instance = Obj(a=Obj(tuple=(1, 2)), b=3, c='Home')
+        self.assertEqual(
+            ASerializer(instance).data,
+            {'type': 'FeatureCollection',
+             'crs': {'type': 'name', 'properties': {'name': 'EPSG:4326'}},
+             'features': [
+                {'type': 'Feature',
+                 'properties': {'b': 3, 'c': 'Home'},
+                 'geometry': {'type': 'Point', 'coordinates': (1, 2, 3)}
+                 }
+                ]
+             }
+            )
+
+    def test_many_geometry_with_altitude(self):
+        class ASerializer(GeoJSONSerializer):
+            altitude_field = 'b'
+            a = PointField()
+            b = IntField()
+
+        instances = [
+            Obj(a=Obj(tuple=(1, 2)), b=3),
+            Obj(a=Obj(tuple=(4, 5)), b=6)
+            ]
+        self.assertEqual(
+            ASerializer(instances, many=True).data,
+            {'type': 'FeatureCollection',
+             'crs': {'type': 'name', 'properties': {'name': 'EPSG:4326'}},
+             'features': [
+                {'type': 'Feature',
+                 'properties': {'b': 3},
+                 'geometry': {'type': 'Point', 'coordinates': (1, 2, 3)}
+                 },
+                {'type': 'Feature',
+                 'properties': {'b': 6},
+                 'geometry': {'type': 'Point', 'coordinates': (4, 5, 6)}
+                 }
+                ]
+             }
+            )
+
+    def test_many_geometry_with_altitude_and_properties(self):
+        class ASerializer(GeoJSONSerializer):
+            altitude_field = 'b'
+            a = PointField()
+            b = IntField()
+            c = Field()
+
+        instances = [
+            Obj(a=Obj(tuple=(1, 2)), b=3, c='Home'),
+            Obj(a=Obj(tuple=(4, 5)), b=6, c='Work')
+            ]
+        self.assertEqual(
+            ASerializer(instances, many=True).data,
+            {'type': 'FeatureCollection',
+             'crs': {'type': 'name', 'properties': {'name': 'EPSG:4326'}},
+             'features': [
+                {'type': 'Feature',
+                 'properties': {'b': 3, 'c': 'Home'},
+                 'geometry': {'type': 'Point', 'coordinates': (1, 2, 3)}
+                 },
+                {'type': 'Feature',
+                 'properties': {'b': 6, 'c': 'Work'},
+                 'geometry': {'type': 'Point', 'coordinates': (4, 5, 6)}
+                 }
+                ]
+             }
+            )
+
 if __name__ == '__main__':
     unittest.main()
