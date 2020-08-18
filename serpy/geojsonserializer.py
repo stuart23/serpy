@@ -6,13 +6,31 @@ from .gisfields import GeometryField
 
 class GeoJSONSerializerMeta(SerializerMeta):
     def __new__(cls, name, bases, attrs):
-        for attr_name, field in attrs.items():
-            if isinstance(field, GeometryField):
-                geometry_field = (field, attr_name)
-                del attrs[attr_name]
-                break
+        # If the class is just GeoJSONSerializer, then there will not be any
+        # geometry field. Otherwise ensure there is a GeometryField
+        if name == 'GeoJSONSerializer':
+            return super(GeoJSONSerializerMeta, cls)\
+                .__new__(cls, name, bases, attrs)
+        geometry_fields = list(
+            filter(lambda attr: isinstance(attr[1], GeometryField),
+                   attrs.items())
+            )
+        if len(geometry_fields) > 1:
+            raise TypeError(
+                'Only one GeometryField must be defined for each '
+                'GeoJSONSerializer'
+                )
+        elif len(geometry_fields) == 0:
+            raise TypeError(
+                'A GeometryField must be defined for the GeoJSONSerializer'
+                )
         else:
-            geometry_field = None
+            # In attrs, the key is the field name, and the value is the field
+            # type, but for _compile_field_to_tuple, we need the first argument
+            # to be the field type, and the second one to be the field name.
+            geometry_field = geometry_fields[0][::-1]
+            del attrs[geometry_field[1]]
+
         real_cls = super(GeoJSONSerializerMeta, cls)\
             .__new__(cls, name, bases, attrs)
         if geometry_field:
