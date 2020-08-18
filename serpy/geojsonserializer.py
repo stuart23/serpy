@@ -16,7 +16,7 @@ class GeoJSONSerializerMeta(SerializerMeta):
         real_cls = super().__new__(cls, name, bases, attrs)
         if geometry_field:
             real_cls._compiled_geometry_field = _compile_field_to_tuple(
-                *geometry_field, real_cls)
+                *geometry_field, serializer_cls=real_cls)
         return real_cls
 
 
