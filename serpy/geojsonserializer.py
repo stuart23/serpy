@@ -13,7 +13,6 @@ class GeoJSONSerializerMeta(SerializerMeta):
                 break
         else:
             geometry_field = None
-        import pdb; pdb.set_trace()
         real_cls = super(GeoJSONSerializerMeta, cls)\
             .__new__(cls, name, bases, attrs)
         if geometry_field:
