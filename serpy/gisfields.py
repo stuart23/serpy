@@ -14,7 +14,7 @@ class PointField(GeometryField):
     '''
     A :class:`Field` that represents a GIS point.
 
-    The serialized object can be any object that defines the coordinates in a
+    The input object can be any object that defines the coordinates in a
     `tuple` property, e.g. a :class:`django.contrib.gis.geos.Point`. The
     coordinates can be 2 or 3 dimensional.
     '''
@@ -26,4 +26,19 @@ class PointField(GeometryField):
         # also the slowest way of getting the results. Compared to getting the
         # tuple, json was 7.2ms vs 1.2ms for the tuple. Also a single
         # component, e.g. geometry.x, was 7.2ms
+        return(geometry.tuple)
+
+
+class PolygonField(GeometryField):
+    '''
+    A :class:`Field` that represents a GIS polygon.
+
+    The input object can be any object that has a list of a list of coordinates
+    as the the `tuple` property, e.g. a
+    :class:`django.contrib.gis.geos.Polygon`.
+    '''
+    feature_type = 'Polygon'
+
+    @staticmethod
+    def to_value(geometry):
         return(geometry.tuple)
