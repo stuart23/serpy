@@ -33,11 +33,11 @@ class TestGeoJSONSerializer(unittest.TestCase):
             {'type': 'FeatureCollection',
              'crs': {'type': 'name', 'properties': {'name': 'EPSG:4326'}},
              'features': [
-                {'type': 'Feature',
-                 'properties': {},
-                 'geometry': {'type': 'Point', 'coordinates': (1, 2, 3)}
-                 }
-                ]
+                 {'type': 'Feature',
+                  'properties': {},
+                  'geometry': {'type': 'Point', 'coordinates': (1, 2, 3)}
+                  },
+                 ]
              }
             )
 
@@ -52,11 +52,11 @@ class TestGeoJSONSerializer(unittest.TestCase):
             {'type': 'FeatureCollection',
              'crs': {'type': 'name', 'properties': {'name': 'EPSG:4326'}},
              'features': [
-                {'type': 'Feature',
-                 'properties': {'b': 'Home'},
-                 'geometry': {'type': 'Point', 'coordinates': (1, 2, 3)}
-                 }
-                ]
+                 {'type': 'Feature',
+                  'properties': {'b': 'Home'},
+                  'geometry': {'type': 'Point', 'coordinates': (1, 2, 3)}
+                  }
+                 ]
              }
             )
 
@@ -73,15 +73,15 @@ class TestGeoJSONSerializer(unittest.TestCase):
             {'type': 'FeatureCollection',
              'crs': {'type': 'name', 'properties': {'name': 'EPSG:4326'}},
              'features': [
-                {'type': 'Feature',
-                 'properties': {},
-                 'geometry': {'type': 'Point', 'coordinates': (1, 2, 3)}
-                 },
-                {'type': 'Feature',
-                 'properties': {},
-                 'geometry': {'type': 'Point', 'coordinates': (4, 5, 6)}
-                 }
-                ]
+                 {'type': 'Feature',
+                  'properties': {},
+                  'geometry': {'type': 'Point', 'coordinates': (1, 2, 3)}
+                  },
+                 {'type': 'Feature',
+                  'properties': {},
+                  'geometry': {'type': 'Point', 'coordinates': (4, 5, 6)}
+                  }
+                 ]
              }
             )
 
@@ -99,15 +99,15 @@ class TestGeoJSONSerializer(unittest.TestCase):
             {'type': 'FeatureCollection',
              'crs': {'type': 'name', 'properties': {'name': 'EPSG:4326'}},
              'features': [
-                {'type': 'Feature',
-                 'properties': {'b': 'Home'},
-                 'geometry': {'type': 'Point', 'coordinates': (1, 2, 3)}
-                 },
-                {'type': 'Feature',
-                 'properties': {'b': 'Work'},
-                 'geometry': {'type': 'Point', 'coordinates': (4, 5, 6)}
-                 }
-                ]
+                 {'type': 'Feature',
+                  'properties': {'b': 'Home'},
+                  'geometry': {'type': 'Point', 'coordinates': (1, 2, 3)}
+                  },
+                 {'type': 'Feature',
+                  'properties': {'b': 'Work'},
+                  'geometry': {'type': 'Point', 'coordinates': (4, 5, 6)}
+                  }
+                 ]
              }
             )
 
@@ -123,11 +123,11 @@ class TestGeoJSONSerializer(unittest.TestCase):
             {'type': 'FeatureCollection',
              'crs': {'type': 'name', 'properties': {'name': 'EPSG:4326'}},
              'features': [
-                {'type': 'Feature',
-                 'properties': {'b': 3},
-                 'geometry': {'type': 'Point', 'coordinates': (1, 2, 3)}
-                 }
-                ]
+                 {'type': 'Feature',
+                  'properties': {'b': 3},
+                  'geometry': {'type': 'Point', 'coordinates': (1, 2, 3)}
+                  }
+                 ]
              }
             )
 
@@ -144,11 +144,11 @@ class TestGeoJSONSerializer(unittest.TestCase):
             {'type': 'FeatureCollection',
              'crs': {'type': 'name', 'properties': {'name': 'EPSG:4326'}},
              'features': [
-                {'type': 'Feature',
-                 'properties': {'b': 3, 'c': 'Home'},
-                 'geometry': {'type': 'Point', 'coordinates': (1, 2, 3)}
-                 }
-                ]
+                 {'type': 'Feature',
+                  'properties': {'b': 3, 'c': 'Home'},
+                  'geometry': {'type': 'Point', 'coordinates': (1, 2, 3)}
+                  }
+                 ]
              }
             )
 
@@ -167,15 +167,15 @@ class TestGeoJSONSerializer(unittest.TestCase):
             {'type': 'FeatureCollection',
              'crs': {'type': 'name', 'properties': {'name': 'EPSG:4326'}},
              'features': [
-                {'type': 'Feature',
-                 'properties': {'b': 3},
-                 'geometry': {'type': 'Point', 'coordinates': (1, 2, 3)}
-                 },
-                {'type': 'Feature',
-                 'properties': {'b': 6},
-                 'geometry': {'type': 'Point', 'coordinates': (4, 5, 6)}
-                 }
-                ]
+                 {'type': 'Feature',
+                  'properties': {'b': 3},
+                  'geometry': {'type': 'Point', 'coordinates': (1, 2, 3)}
+                  },
+                 {'type': 'Feature',
+                  'properties': {'b': 6},
+                  'geometry': {'type': 'Point', 'coordinates': (4, 5, 6)}
+                  }
+                 ]
              }
             )
 
@@ -195,15 +195,15 @@ class TestGeoJSONSerializer(unittest.TestCase):
             {'type': 'FeatureCollection',
              'crs': {'type': 'name', 'properties': {'name': 'EPSG:4326'}},
              'features': [
-                {'type': 'Feature',
-                 'properties': {'b': 3, 'c': 'Home'},
-                 'geometry': {'type': 'Point', 'coordinates': (1, 2, 3)}
-                 },
-                {'type': 'Feature',
-                 'properties': {'b': 6, 'c': 'Work'},
-                 'geometry': {'type': 'Point', 'coordinates': (4, 5, 6)}
-                 }
-                ]
+                 {'type': 'Feature',
+                  'properties': {'b': 3, 'c': 'Home'},
+                  'geometry': {'type': 'Point', 'coordinates': (1, 2, 3)}
+                  },
+                 {'type': 'Feature',
+                  'properties': {'b': 6, 'c': 'Work'},
+                  'geometry': {'type': 'Point', 'coordinates': (4, 5, 6)}
+                  }
+                 ]
              }
             )
 
