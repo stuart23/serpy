@@ -13,7 +13,8 @@ class GeoJSONSerializerMeta(SerializerMeta):
                 break
         else:
             geometry_field = None
-        real_cls = super().__new__(cls, name, bases, attrs)
+        real_cls = super(GeoJSONSerializerMeta, self)\
+            .__new__(cls, name, bases, attrs)
         if geometry_field:
             real_cls._compiled_geometry_field = _compile_field_to_tuple(
                 *geometry_field, serializer_cls=real_cls)
@@ -24,8 +25,10 @@ class GeoJSONSerializer(six.with_metaclass(GeoJSONSerializerMeta, Serializer)):
     altitude_field = None
 
     def _serialize(self, instance, fields, geometry_field):
-        properties = super()._serialize(instance, fields)
-        geometry = super()._serialize(instance, [geometry_field])
+        properties = super(GeoJSONSerializer, self)\
+            ._serialize(instance, fields)
+        geometry = super(GeoJSONSerializer, self)\
+            ._serialize(instance, [geometry_field])
         return {
             "type": "Feature",
             "properties": properties,
@@ -40,8 +43,10 @@ class GeoJSONSerializer(six.with_metaclass(GeoJSONSerializerMeta, Serializer)):
         Returns a method for serializing points using a specified field for the
         altitude 'z' component.
         '''
-        properties = super()._serialize(instance, fields)
-        (_, geometry), = super()._serialize(instance, [geometry_field]).items()
+        properties = super(GeoJSONSerializer, self)\
+            ._serialize(instance, fields)
+        (_, geometry), = super(GeoJSONSerializer, self)\
+            ._serialize(instance, [geometry_field]).items()
         altitude = properties[self.altitude_field]
         return {
             "type": "Feature",
