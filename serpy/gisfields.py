@@ -18,6 +18,8 @@ class PointField(GeometryField):
     `tuple` property, e.g. a :class:`django.contrib.gis.geos.Point`. The
     coordinates can be 2 or 3 dimensional.
     '''
+    feature_type = 'Point'
+
     @staticmethod
     def to_value(geometry):
         # accessing the geometry.ogr.json seems to be the most complete, but

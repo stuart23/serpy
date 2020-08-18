@@ -33,7 +33,7 @@ class GeoJSONSerializer(six.with_metaclass(GeoJSONSerializerMeta, Serializer)):
             "type": "Feature",
             "properties": properties,
             "geometry": {
-                "type": "Point",
+                "type": geometry_field.feature_type,
                 "coordinates": geometry
             }
         }
@@ -52,7 +52,7 @@ class GeoJSONSerializer(six.with_metaclass(GeoJSONSerializerMeta, Serializer)):
             "type": "Feature",
             "properties": properties,
             "geometry": {
-                "type": "Point",
+                "type": geometry_field.feature_type,
                 "coordinates": geometry + (altitude,)
             }
         }
