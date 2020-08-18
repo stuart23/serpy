@@ -68,7 +68,7 @@ class GeoJSONSerializer(six.with_metaclass(GeoJSONSerializerMeta, Serializer)):
             "type": "Feature",
             "properties": properties,
             "geometry": {
-                "type": geometry_field.feature_type,
+                "type": self.geometry_feature_type,
                 "coordinates": geometry + (altitude,)
             }
         }
