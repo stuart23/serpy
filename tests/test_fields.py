@@ -3,7 +3,8 @@ from serpy.fields import (
     Field, MethodField, BoolField, DateTimeField, IntField, FloatField,
     StrField)
 import unittest
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
+from dateutil import tz
 
 
 class TestFields(unittest.TestCase):
@@ -65,15 +66,16 @@ class TestFields(unittest.TestCase):
             field.to_value(datetime(2011, 11, 4, 0, 5, 23, 283000)),
             '2011-11-04T00:05:23.283000'
             )
+
         self.assertEqual(
             field.to_value(
-                datetime(2011, 11, 4, 0, 5, 23, 283000, tzinfo=timezone.utc)
+                datetime(2011, 11, 4, 0, 5, 23, 283000, tzinfo=tz.UTC)
                 ),
             '2011-11-04T00:05:23.283000+00:00'
             )
         self.assertEqual(
             field.to_value(datetime(2011, 11, 4, 0, 5, 23,
-                                    tzinfo=timezone(timedelta(hours=4)))),
+                                    tzinfo=tz.tzoffset('', 14400))),
             '2011-11-04T00:05:23+04:00'
             )
 
